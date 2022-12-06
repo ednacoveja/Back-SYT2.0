@@ -6,19 +6,23 @@ module.exports = (sequelize) => {
   sequelize.define("user", {
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     lastname: {
       type: DataTypes.STRING,
+    },
+    user: {
+      type: DataTypes.STRING,
       allowNull: false,
+      unique:true
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique:true
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     main_photo: {
       type: DataTypes.TEXT,
