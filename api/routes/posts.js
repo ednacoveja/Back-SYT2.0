@@ -15,4 +15,5 @@ router.get("/", searchPost)
 router.get("/:id", detailPost)
 router.post("/", creatPost)
 router.delete("/:id", deletePost)
+
 module.exports= router
