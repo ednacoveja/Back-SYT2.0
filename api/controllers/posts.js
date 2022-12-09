@@ -43,6 +43,23 @@ const searchPost =async(req,res)=>{
 }
 
 
+const detailPost = async(req,res)=>{
+    try {
+        const idPost = req.params.id;
+        if(!idPost) res.status(400).json({msg:"No se encontro el post"})
+        const searchPostId = await Post.findByPk(id)
+        res.status(200).json({
+            post:searchPostId,
+            msg:"Se encontro"
+        })
+    } catch (error) {
+        res.status(500).json({
+            msg:"Error en el servidor",
+            err: error
+        })
+    }
+}
+
 const creatPost = async(req,res)=>{
     try{
         // datos necesarios para la creacion del posteo
@@ -95,5 +112,6 @@ module.exports={
     getAllPost,
     creatPost,
     searchPost,
-    deletePost
+    deletePost,
+    detailPost
 }
