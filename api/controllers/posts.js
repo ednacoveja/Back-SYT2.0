@@ -3,7 +3,6 @@ const { Post, User } = require("../db");
 
 
 const getAllPost = async(req,res)=>{
-    
     try {
         const post= await Post.findAll()
         if(!post){
@@ -14,6 +13,27 @@ const getAllPost = async(req,res)=>{
         }
         console.log("Enviados")
         res.status(200).json(post)
+    } catch (error) {
+        res.status(500).json({
+            msg:"Error en el servidor",
+            err: error
+        })
+    }
+}
+
+const searchPost =async(req,res)=>{
+    try {
+        const title = req.query.title
+        if(!title) res.status(400).json({msg:"No se encontro el Post"})
+        let titleFind = await Post.findAll({
+            where:{
+                title:{[Op.iLike]:`${title}`}
+            }
+        })
+        res.status(200).json({
+            post:titleFind,
+            msg:"Post encontrado"
+        })
     } catch (error) {
         res.status(500).json({
             msg:"Error en el servidor",
@@ -49,8 +69,6 @@ const creatPost = async(req,res)=>{
             err: error.message,
         })
     }
-
-
 }
 
 
@@ -76,5 +94,6 @@ const deletePost= async(req,res)=>{
 module.exports={
     getAllPost,
     creatPost,
+    searchPost,
     deletePost
 }
